@@ -2,6 +2,7 @@
 #define STATISTICS_HPP
 
 #include <vector>
+#include <random>
 
 namespace pf {
   struct Statistics {
@@ -22,10 +23,12 @@ namespace pf {
 
     void add(double);    
     bool remove(double);
+    void push_back(std::default_random_engine eng, int n);
     
     Statistics statistics() const;
 
     Sample& operator+=(const Sample&);
+
   };
 
   Sample operator+(const Sample&, const Sample&);

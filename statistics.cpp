@@ -1,6 +1,7 @@
 #include "statistics.hpp"
 
 #include <algorithm>
+#include <random>
 #include <cmath>
 #include <numeric>
 #include <stdexcept>
@@ -8,6 +9,10 @@
 namespace pf {
 
 void Sample::add(double x) { entries_.push_back(x); }
+
+ void Sample::push_back(std::default_random_engine eng, int n){
+    std::generate_n(back_inserter(entries_), 100000, eng);
+ }
 
 bool Sample::remove(double x) {
   auto const it = std::find(entries_.begin(), entries_.end(), x);
