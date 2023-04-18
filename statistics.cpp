@@ -7,7 +7,10 @@
 
 namespace pf {
 
-void Sample::add(double x) { entries_.push_back(x); }
+void Sample::add(double x) { 
+  entries_.insert(std::lower_bound(entries_.begin(), entries_.end(), x), x);
+  //entries_.push_back(x);
+}
 
 bool Sample::remove(double x) {
   auto const it = std::find(entries_.begin(), entries_.end(), x);
@@ -43,7 +46,7 @@ Statistics Sample::statistics() const {
   const double mean_err = sigma / std::sqrt(N);
 
   auto entries{entries_};
-  std::sort(entries.begin(), entries.end());
+  //std::sort(entries.begin(), entries.end()); //per motivi di performance ora sortiamo all'inizio
 
   const double median =
       N % 2 == 0 ? (entries[N / 2 - 1] + entries[N / 2]) * 0.5 : entries[N / 2];
